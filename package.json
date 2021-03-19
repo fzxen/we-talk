@@ -1,0 +1,65 @@
+{
+  "name": "WeTalk",
+  "version": "0.1.0",
+  "description": "Media Player base on Electron",
+  "main": "main/index.js",
+  "scripts": {
+    "start": "ts-node scripts/dev.ts",
+    "build": "ts-node scripts/build.ts",
+    "build:main": "ts-node scripts/build_main.ts",
+    "build:rend": "ts-node scripts/build_renderer.ts",
+    "electron": "nodemon  --exec \"electron app/index.js\"",
+    "fix": "eslint --fix --ext .ts,.vue ./main ./renderer"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zxffan/only_player.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zxffan/only_player/issues"
+  },
+  "homepage": "https://github.com/zxffan/only_player#readme",
+  "dependencies": {
+    "electron": "^12.0.1",
+    "electron-is-dev": "^2.0.0",
+    "electron-store": "^7.0.2",
+    "typescript": "^4.2.3",
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.4",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/mini-css-extract-plugin": "^1.2.2",
+    "@types/nodemon": "^1.19.0",
+    "@types/uuid": "^8.3.0",
+    "@types/webpack": "^4.41.26",
+    "@types/webpack-dev-server": "^3.11.2",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "@vue/compiler-sfc": "^3.0.7",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.1.3",
+    "electron-builder": "^22.10.5",
+    "eslint": "^7.22.0",
+    "eslint-plugin-vue": "^7.7.0",
+    "eslint-webpack-plugin": "^2.5.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.3.9",
+    "nodemon": "^2.0.7",
+    "sass": "^1.32.8",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^5.1.1",
+    "ts-loader": "^8.0.18",
+    "ts-node": "^9.1.1",
+    "url-loader": "^4.1.1",
+    "vue-loader": "^16.1.2",
+    "webpack": "^5.26.3",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "WeTalk",
+  "version": "0.0.1",
+  "description": "remote control",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "GPL"
+}
