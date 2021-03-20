@@ -12,6 +12,7 @@ const AsideMenuBar = React.lazy(
 export default function App() {
   return (
     <Suspense fallback={"loading..."}>
+      <div className={style.dragBar}/>
       <HashRouter>
         <AsideMenuBar />
         <main className={style.main}>

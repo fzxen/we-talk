@@ -1,0 +1,21 @@
+.search {
+  display: flex;
+  align-items: center;
+  width: 120px;
+  height: 30px;
+  background-color: #e5e6ea;
+  border-radius: 20px;
+  padding-left: 8px;
+}
+
+.input {
+  width: 70%;
+  /* height: 90%; */
+  outline: none;
+  border: none;
+  background-color: #e5e6ea;
+}
+
+.icon {
+  font-size: 18px;
+}

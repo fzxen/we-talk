@@ -1,0 +1,93 @@
+.messageList {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 100vh;
+  box-sizing: border-box;
+  padding-top: 50px;
+  border-right: 1px solid #dedfe3;
+}
+
+/**
+* * 头部 消息数+搜索框+建群按钮
+*/
+.header {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0 20px 10px;
+}
+
+.search {
+  margin-left: auto;
+}
+
+.addButton {
+  width: 30px;
+  height: 30px;
+  background-color: #e5e6ea;
+  text-align: center;
+  line-height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.header :global(.title) {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/**
+* *  消息列表
+*/
+.msgList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  overflow: auto;
+}
+
+.msgItem {
+  display: flex;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.msgItem:hover {
+  background-color: #e5e6ea;
+}
+
+.msgItem img {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.msgItem :global(.middle) {
+  flex: 1;
+  margin-left: 5px;
+}
+
+
+.msgItem :global(.middle .name) {
+  font-size: 14px;
+  /* compose:  */
+  color: #111216;
+}
+
+.msgItem :global(.middle .content) {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #9a9a9c;
+}
+
+.msgItem :global(.right) {
+  font-size: 10px;
+  color: #9a9a9c;
+}
