@@ -6,9 +6,11 @@ export default function createMainWin() {
   const win = new BrowserWindow({
     width: 1000,
     height: 600,
-    // frame: false,
-    // titleBarStyle: "hidden",
-    // backgroundColor: "#434348",
+    minHeight: 400,
+    minWidth: 800,
+    frame: false,
+    titleBarStyle: "hidden",
+    backgroundColor: "#f3f2f7",
     // icon: "./statics/icon.ico",
 
     webPreferences: {

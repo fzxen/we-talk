@@ -2,7 +2,6 @@ import webpack, { Configuration } from "webpack";
 import DevServer from "webpack-dev-server";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
-import { VueLoaderPlugin } from "vue-loader";
 import MiniCssExtractPlugin, {
   loader as ExtractLoader,
 } from "mini-css-extract-plugin";
@@ -12,6 +11,8 @@ import path from "path";
 import { readdirSync } from "fs";
 import log from "./log";
 import config from "../app.config";
+import merge from "webpack-merge";
+import TerserPlugin from "terser-webpack-plugin";
 
 const ab = (relative: string) => path.resolve(__dirname, relative);
 
@@ -20,77 +21,84 @@ function scanPages() {
   return dirs.filter((dir) => !dir.startsWith("_"));
 }
 
-export function runRenderer() {
+function genRendererBaseConfig(
+  mode: "development" | "production"
+): Configuration {
   const pages = scanPages();
-  return new Promise<void>((resolve, reject) => {
-    const options: Configuration[] = [
-      {
-        entry: pages.reduce<{ [prop: string]: any }>((entry, page) => {
-          entry[page] = ab(`../renderer/${page}/index.ts`);
-          return entry;
-        }, {}),
-        output: {
-          filename: "[name].js",
-          path: ab("../renderer/landing/dist"),
+  const isDev = mode === "development";
+  return {
+    entry: pages.reduce<{ [prop: string]: any }>((entry, page) => {
+      entry[page] = ab(`../renderer/${page}/index.tsx`);
+      return entry;
+    }, {}),
+    // target: "electron-renderer",
+    mode,
+    resolve: {
+      extensions: [".ts", ".tsx", ".js", ".jsx"],
+      alias: {
+        "@": ab("../renderer"),
+        _common: ab("../renderer/_common"),
+      },
+    },
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          use: ["ts-loader"],
         },
-        // target: "electron-renderer",
-        mode: "development",
-        resolve: {
-          extensions: [".ts", ".vue", ".js"],
-          alias: {
-            "@": ab("../renderer"),
-            _common: ab("../renderer/_common"),
-          },
-        },
-        devtool: "inline-cheap-module-source-map",
-        module: {
-          rules: [
+        {
+          test: /\.css$/,
+          use: [
+            isDev ? "style-loader" : ExtractLoader,
             {
-              test: /\.tsx?$/,
-              use: [
-                {
-                  loader: "ts-loader",
-                  options: {
-                    transpileOnly: true,
-                    appendTsSuffixTo: [/\.vue$/],
-                  },
-                },
-              ],
-              exclude: /node_modules/,
-            },
-            {
-              test: /\.vue$/,
-              use: ["vue-loader"],
-            },
-            {
-              test: /\.css$/,
               loader: "css-loader",
-            },
-            {
-              test: /\.scss$/,
-              use: ["style-loader", "css-loader", "sass-loader"],
-            },
-            {
-              test: /\.(mp4|flv|mp3|png|jpg|jpeg|gif)$/,
-              use: ["url-loader"],
+              options: {
+                modules: {
+                  mode: "local",
+                  auto: true,
+                  localIdentName: isDev
+                    ? "[path][name]__[local]"
+                    : "[hash:base64]",
+                },
+              },
             },
           ],
         },
-        plugins: [
-          ...pages.map(
-            (page) =>
-              new HtmlWebpackPlugin({
-                template: ab(`../renderer/${page}/index.html`),
-                filename: `${page}.html`,
-                chunks: [page],
-              })
-          ),
-          new VueLoaderPlugin(),
-          new webpack.HotModuleReplacementPlugin(),
-          new EslintWebpackPlugin({ fix: true, extensions: [".ts", ".vue"] }),
-        ],
+        {
+          test: /\.(mp4|flv|mp3|png|jpg|jpeg|gif|svg)$/,
+          use: ["url-loader"],
+        },
+      ],
+    },
+    plugins: [
+      ...pages.map(
+        (page) =>
+          new HtmlWebpackPlugin({
+            template: ab(`../renderer/${page}/index.html`),
+            filename: `${page}.html`,
+            chunks: [page],
+          })
+      ),
+    ],
+  };
+}
+
+export function runRenderer() {
+  const base = genRendererBaseConfig("development");
+  return new Promise<void>((resolve, reject) => {
+    const options = merge(base, {
+      output: {
+        filename: "[name].js",
+        path: ab("../renderer/landing/dist"),
       },
-    ];
+      // target: "electron-renderer",
+      mode: "development",
+      devtool: "inline-cheap-module-source-map",
+      plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new EslintWebpackPlugin({ fix: true, extensions: [".ts", ".vue"] }),
+      ],
+    });
 
     const compiler = webpack(options);
 
@@ -99,7 +107,7 @@ export function runRenderer() {
     });
 
     const server = new DevServer(compiler, {
-      // inline: true,
+      inline: true,
       hot: true,
       overlay: {
         errors: true,
@@ -118,77 +126,39 @@ export function runRenderer() {
 }
 
 export function buildRenderer() {
-  const pages = scanPages();
+  const base = genRendererBaseConfig("production");
   return new Promise<void>((resolve, reject) => {
-    const options: Configuration[] = [
-      {
-        entry: pages.reduce<{ [prop: string]: any }>((entry, page) => {
-          entry[page] = ab(`../renderer/${page}/index.ts`);
-          return entry;
-        }, {}),
-        output: {
-          filename: "[name].[chunkhash].js",
-          path: ab("../app/public"),
-        },
-        // target: "electron-renderer",
-        mode: "production",
-        resolve: {
-          extensions: [".ts", ".vue", ".js"],
-          alias: {
-            "@": ab("../renderer"),
-            _common: ab("../renderer/_common"),
-          },
-        },
-        module: {
-          rules: [
-            {
-              test: /\.tsx?$/,
-              use: [
-                {
-                  loader: "ts-loader",
-                  options: {
-                    transpileOnly: true,
-                    appendTsSuffixTo: [/\.vue$/],
-                  },
-                },
-              ],
-              exclude: /node_modules/,
+    const options = merge(base, {
+      output: {
+        filename: "[name].[chunkhash].js",
+        path: ab("../app/public"),
+      },
+      // target: "electron-renderer",
+      mode: "production",
+      optimization: {
+        minimize: true,
+        minimizer: [
+          new TerserPlugin({
+            parallel: true,
+            extractComments: true,
+            terserOptions: {
+              compress: {
+                unused: true,
+                drop_debugger: true,
+                drop_console: true,
+                dead_code: true,
+              },
             },
-            {
-              test: /\.vue$/,
-              use: ["vue-loader"],
-            },
-            {
-              test: /\.css$/,
-              loader: "css-loader",
-            },
-            {
-              test: /\.scss$/,
-              use: [ExtractLoader, "css-loader", "sass-loader"],
-            },
-            {
-              test: /\.(mp4|flv|mp3|png|jpg|jpeg|gif)/,
-              use: ["url-loader"],
-            },
-          ],
-        },
-        plugins: [
-          ...pages.map(
-            (page) =>
-              new HtmlWebpackPlugin({
-                template: ab(`../renderer/${page}/index.html`),
-                filename: `${page}.html`,
-                chunks: [page],
-              })
-          ),
-          new CleanWebpackPlugin(),
-          new VueLoaderPlugin(),
-          new MiniCssExtractPlugin({
-            filename: "assets/style/[name].[contenthash].css",
           }),
         ],
       },
-    ];
+      plugins: [
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+          filename: "assets/style/[name].[contenthash].css",
+        }),
+      ],
+    });
 
     const compiler = webpack(options);
 
@@ -259,7 +229,7 @@ export function buildMain() {
           const data = stats.toJson();
           log.error(
             "================主进程 监听失败================\n" +
-              data.errors?.join("\n")
+              data.errors?.map((err) => err.message).join("\n")
           );
           reject(data);
         } else {
