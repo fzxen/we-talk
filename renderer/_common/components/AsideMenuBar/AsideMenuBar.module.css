@@ -1,0 +1,50 @@
+.asideBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  padding: 50px 0 20px 0;
+  border-right: 1px solid #dedfe3;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 20%;
+}
+
+.menuList {
+  width: 100%;
+  text-align: center;
+  flex: 1;
+  margin-top: 10vh;
+}
+
+.menuItem {
+  font-size: 24px;
+  height: 50px;
+  line-height: 50px;
+  cursor: pointer;
+}
+
+.menuItemActive {
+  color: #0cc160;
+  border-right: 1px solid #0cc160;
+}
+
+.bottomOpt {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.boItem {
+  font-size: 24px;
+  height: 50px;
+  line-height: 50px;
+}

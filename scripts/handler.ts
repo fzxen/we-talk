@@ -18,7 +18,7 @@ const ab = (relative: string) => path.resolve(__dirname, relative);
 
 function scanPages() {
   const dirs = readdirSync(path.resolve(__dirname, "../renderer"));
-  return dirs.filter((dir) => !dir.startsWith("_"));
+  return dirs.filter((dir) => /^[A-Za-z]/.test(dir));
 }
 
 function genRendererBaseConfig(
