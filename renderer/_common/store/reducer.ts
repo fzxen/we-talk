@@ -20,6 +20,26 @@ export const initialState = {
       },
       type: "group",
     },
+    {
+      id: "0x0104",
+      name: "张文",
+      avatar: "http://api.btstu.cn/sjtx/api.php?_t=mother",
+      lastMessage: {
+        content: "👌",
+        type: "text",
+      },
+      type: "friend",
+    },
+    {
+      id: "0x0152",
+      name: "孙倩倩",
+      avatar: "http://api.btstu.cn/sjtx/api.php?_t=mother",
+      lastMessage: {
+        content: "👌",
+        type: "text",
+      },
+      type: "friend",
+    },
   ],
   group: [
     {
