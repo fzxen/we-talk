@@ -1,0 +1,44 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+  background-color: transparent;
+
+  min-width: 120px;
+  height: 35px;
+
+  padding: 2px;
+  color: #fff;
+  font-size: 12px;
+
+  cursor: pointer;
+
+}
+
+/* icon */
+.button :global(.icon) {
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+/* color */
+.button:global(.primary) {
+  background-color: #0cc160;
+}
+.button:global(.primary):hover {
+  background-color: #09aa54;
+}
+
+.button:global(.error) {
+  background-color: #ff5f57;
+}
+.button:global(.error):hover {
+  background-color: #c94e47;
+}
+
+/* shape */
+.button:global(.circle) {
+  border-radius: 20px;
+}
