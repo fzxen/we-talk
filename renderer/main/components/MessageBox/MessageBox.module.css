@@ -1,8 +1,14 @@
+.messageBoxWrap {
+  flex: 1;
+  display: flex;
+  height: 100vh;
+
+}
+
 .messageBox {
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   box-sizing: border-box;
   padding-top: 50px;
 }
@@ -16,11 +22,16 @@
   align-items: center;
   padding: 0 20px 20px 20px;
   flex-shrink: 0;
+  z-index: 2;
 }
 
 .header :global(.name) {
   font-weight: 600;
 }
+
+/**
+* * More Button
+*/
 
 .moreButton {
   width: 30px;
@@ -31,10 +42,16 @@
   margin-left: 10px;
   cursor: pointer;
   border-radius: 5px;
+  transform: rotateY(180deg);
+  transition: transform .3s ease-in-out;
+}
+
+.moreButton:global(.open) {
+  transform: rotateY(0);
 }
 
 /**
-* * Box
+* * ChatBox
 */
 
 .box {
@@ -98,7 +115,97 @@
   resize: none;
 }
 
-/* emoji */
+/**
+* * Aside
+*/
+.aside {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  border-left: 1px solid #dfe0e2;
+  transform: translateX(200px);
+  transition: transform .3s ease-in-out;
+  overflow: auto;
+  background-color: #f3f2f7;
+  padding: 100px 10px 10px;
+  box-sizing: border-box;
+}
+
+.aside:global(.open) {
+  transform: translateX(0);
+}
+
+/* info */
+.info {
+  flex-shrink: 0;
+}
+
+.info :global(.infoItem) {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.info :global(.infoItem):not(:first-of-type) {
+  margin-top: 5px;
+}
+
+.info :global(.infoItem .label) {
+  color: #a7a8aa;
+}
+
+/* list */
+.list {
+  flex: 1;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  padding: 8px 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.listItem:not(:first-of-type) {
+  margin-top: 10px;
+}
+
+.listItem :global(img) {
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+  border-radius: 10px;
+
+}
+
+.listItem :global(.name) {
+  font-size: 12px;
+}
+
+/* button */
+.button {
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.button :global(.button) {
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*
+* * emoji 
+*/
 .emojiPopper {
   position: relative;
   width: 200px;
