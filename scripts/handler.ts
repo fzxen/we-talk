@@ -20,11 +20,11 @@ function scanPages() {
   const dirs = readdirSync(path.resolve(__dirname, "../renderer"));
   return dirs.filter((dir) => /^[A-Za-z]/.test(dir));
 }
+const pages = scanPages();
 
 function genRendererBaseConfig(
   mode: "development" | "production"
 ): Configuration {
-  const pages = scanPages();
   const isDev = mode === "development";
   return {
     entry: pages.reduce<{ [prop: string]: any }>((entry, page) => {
@@ -89,9 +89,8 @@ export function runRenderer() {
     const options = merge(base, {
       output: {
         filename: "[name].js",
-        path: ab("../renderer/landing/dist"),
+        path: ab("../app/public"),
       },
-      // target: "electron-renderer",
       mode: "development",
       devtool: "inline-cheap-module-source-map",
       plugins: [
@@ -133,7 +132,6 @@ export function buildRenderer() {
         filename: "[name].[chunkhash].js",
         path: ab("../app/public"),
       },
-      // target: "electron-renderer",
       mode: "production",
       optimization: {
         minimize: true,
@@ -187,63 +185,90 @@ export function buildRenderer() {
   });
 }
 
-export function buildMain() {
+export function buildMain(mode: "production" | "development") {
   return new Promise<void>((resolve, reject) => {
-    const options: Configuration = {
-      entry: ab("../main/index.ts"),
-      output: {
-        filename: "index.js",
-        path: ab("../app"),
+    const options: Configuration[] = [
+      {
+        entry: ab("../main/index.ts"),
+        output: {
+          filename: "index.js",
+          path: ab("../app"),
+        },
+        resolve: {
+          extensions: [".ts", ".js"],
+        },
+        node: {
+          __dirname: true,
+        },
+        mode: "production",
+        target: "electron-main",
+        module: {
+          rules: [
+            {
+              test: /\.tsx?$/,
+              use: ["ts-loader"],
+            },
+          ],
+        },
       },
-      resolve: {
-        extensions: [".ts", ".js"],
+      {
+        entry: pages.reduce<{ [prop: string]: any }>((entry, page) => {
+          entry[page] = ab(`../renderer/${page}/preload.ts`);
+          return entry;
+        }, {}),
+        output: {
+          filename: "[name]_preload.js",
+          path: ab("../app/preload"),
+        },
+        target: "electron-main",
+        mode: "production",
+        module: {
+          rules: [
+            {
+              test: /\.tsx?$/,
+              use: ["ts-loader"],
+            },
+          ],
+        },
+        plugins: [new EslintWebpackPlugin({ fix: true, extensions: [".ts"] })],
       },
-      node: {
-        __dirname: true,
-      },
-      mode: "production",
-      target: "electron-main",
-      module: {
-        rules: [
-          {
-            test: /\.tsx?$/,
-            use: ["ts-loader"],
-          },
-        ],
-      },
-    };
+    ];
 
     const compiler = webpack(options);
 
-    compiler.watch(
-      {
-        poll: 1000, // 每秒询问多少次
-        aggregateTimeout: 500, // 防抖 多少毫秒后再次触发
-        ignored: /node_modules/, // 忽略监听
-      },
-      (err, stats) => {
-        if (err) {
-          log.error("================主进程 监听失败================\n" + err);
-          reject(err);
-        } else if (stats && stats.hasErrors()) {
-          const data = stats.toJson();
-          log.error(
-            "================主进程 监听失败================\n" +
-              data.errors?.map((err) => err.message).join("\n")
-          );
-          reject(data);
-        } else {
-          log.success("================主进程 监听中================");
-          const result = stats?.toJson();
+    mode === "development"
+      ? compiler.watch(
+          {
+            poll: 1000, // 每秒询问多少次
+            aggregateTimeout: 500, // 防抖 多少毫秒后再次触发
+            ignored: /node_modules/, // 忽略监听
+          },
+          catchError
+        )
+      : compiler.run(catchError);
 
-          log.tip(`Time: ${result?.time}ms`);
-          log.tip(`output: ${result?.outputPath}`);
-          log.tip(`webpack version: ${result?.version}`);
+    function catchError(err: any, stats: any) {
+      if (err) {
+        log.error("================主进程 监听失败================\n" + err);
+        reject(err);
+      } else if (stats && stats.hasErrors()) {
+        const data = stats.toJson();
+        log.error(
+          "================主进程 监听失败================\n" +
+            data.errors?.map((err: any) => err.message).join("\n")
+        );
+        reject(data);
+      } else {
+        log.success("================主进程 监听中================");
+        const result = stats?.toJson();
 
-          resolve();
-        }
+        log.tip(`Time: ${result?.time}ms`);
+        log.tip(`output: ${result?.outputPath}`);
+        log.tip(`webpack version: ${result?.version}`);
+
+        resolve();
       }
-    );
+    }
   });
 }
 
