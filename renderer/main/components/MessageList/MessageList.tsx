@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
 import style from "./MessageList.module.css";
 import Search from "_common/components/Search/Search";
 import Icon from "_common/components/Icon/Icon";
+import { useStore, ACTIONS } from "_common/store";
 
 function AddButton() {
   return (
@@ -12,22 +13,27 @@ function AddButton() {
 }
 
 function List() {
-  const msgs = new Array(10).fill({
-    name: "张海斌",
-    avatar: "http://api.btstu.cn/sjtx/api.php",
-    message: {
-      content: "小李，晚上一起吃个饭",
-      type: "text",
-    },
-  });
+  const { state, dispatch } = useStore();
+  const msgs = state.messageList;
+
+  const checkMessage = useCallback((message: typeof msgs[0]) => {
+    dispatch({
+      type: ACTIONS.CHECK_MESSAGE,
+      payload: { id: message.id, type: message.type },
+    });
+  }, []);
   return (
     <ul className={style.msgList}>
       {msgs.map((m, index) => (
-        <li key={index} className={style.msgItem}>
+        <li
+          key={index}
+          className={style.msgItem}
+          onClick={() => checkMessage(m)}
+        >
           <img src={`${m.avatar}?_t=${index}`} alt="avatar" />
           <div className="middle">
             <div className="name">{m.name}</div>
-            <div className="content">{m.message.content}</div>
+            <div className="content">{m.lastMessage.content}</div>
           </div>
           <div className="right">15:22</div>
         </li>

@@ -52,7 +52,11 @@ export default function AsideMenuBar() {
 
   return (
     <aside className={style.asideBar}>
-      <img className={style.avatar} src={avatarImg} alt="" />
+      <img
+        className={style.avatar}
+        src="http://api.btstu.cn/sjtx/api.php?_t=me"
+        alt=""
+      />
 
       <ul className={style.menuList}>
         {menus.map((m) => (

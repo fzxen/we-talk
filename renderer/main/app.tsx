@@ -1,5 +1,7 @@
-import React, { Suspense, Fragment } from "react";
+import React, { Suspense } from "react";
 import { Switch, Route, HashRouter, Redirect } from "react-router-dom";
+
+import { Store } from "_common/store";
 
 import style from "./app.module.css";
 
@@ -12,17 +14,19 @@ const AsideMenuBar = React.lazy(
 export default function App() {
   return (
     <Suspense fallback={"loading..."}>
-      <div className={style.dragBar}/>
-      <HashRouter>
-        <AsideMenuBar />
-        <main className={style.main}>
-          <Redirect path="/" to="/message" />
-          <Switch>
-            <Route path="/message" component={Message} />
-            <Route path="/friends" component={Friends} />
-          </Switch>
-        </main>
-      </HashRouter>
+      <Store>
+        <div className={style.dragBar} />
+        <HashRouter>
+          <AsideMenuBar />
+          <main className={style.main}>
+            <Redirect path="/" to="/message" />
+            <Switch>
+              <Route path="/message" component={Message} />
+              <Route path="/friends" component={Friends} />
+            </Switch>
+          </main>
+        </HashRouter>
+      </Store>
     </Suspense>
   );
 }

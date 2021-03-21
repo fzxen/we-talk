@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import style from "./MessageBox.module.css";
 
 import Icon from "_common/components/Icon/Icon";
@@ -7,6 +7,8 @@ import Button from "_common/components/Button/Button";
 import ChatBox from "./ChatBox";
 import Editor from "./Editor";
 import cn from "classnames";
+
+import { useStore } from "_common/store";
 
 interface MoreButtonProps {
   open: boolean;
@@ -26,30 +28,12 @@ function MoreButton({ open, setOpen }: MoreButtonProps) {
 
 interface AsideProps {
   open: boolean;
+  member: Array<{
+    name: string;
+    avatar: string;
+  }>;
 }
-function Aside({ open }: AsideProps) {
-  const member = [
-    {
-      name: "爱吹牛的宝妹",
-      avatar: "http://api.btstu.cn/sjtx/api.php?_t=1",
-    },
-    {
-      name: "菜菜",
-      avatar: "http://api.btstu.cn/sjtx/api.php?_t=2",
-    },
-    {
-      name: "四眼仔",
-      avatar: "http://api.btstu.cn/sjtx/api.php?_t=3",
-    },
-    {
-      name: "ZXFAN",
-      avatar: "http://api.btstu.cn/sjtx/api.php?_t=4",
-    },
-    {
-      name: "怪怪妹",
-      avatar: "http://api.btstu.cn/sjtx/api.php?_t=5",
-    },
-  ];
+function Aside({ open, member }: AsideProps) {
   return (
     <section className={cn(style.aside, { open })}>
       <div className={style.info}>
@@ -83,64 +67,27 @@ function Aside({ open }: AsideProps) {
 }
 
 export default function GroupMessageBox() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const { state } = useStore();
 
-  const msgs = [
-    {
-      isMe: false,
-      timestamp: Date.now(),
-      avatar: "http://api.btstu.cn/sjtx/api.php?_t=1",
-      name: "爱吹牛的宝妹",
-      content: "在通往吹牛的路上，我渐渐地放飞了自我",
-    },
-    {
-      isMe: false,
-      timestamp: Date.now(),
-      avatar: "http://api.btstu.cn/sjtx/api.php?_t=2",
-      name: "菜菜",
-      content: "如果没有遇见你们，我都不知道吹牛地真正含义。😂",
-    },
-    {
-      isMe: false,
-      timestamp: Date.now(),
-      avatar: "http://api.btstu.cn/sjtx/api.php?_t=1",
-      name: "爱吹牛的宝妹",
-      content: "我从来没说过谎话",
-    },
-    {
-      isMe: false,
-      timestamp: Date.now(),
-      avatar: "http://api.btstu.cn/sjtx/api.php?_t=3",
-      name: "四眼仔",
-      content: "吹牛大赛只要三个字就能得冠军——我不帅！",
-    },
-    {
-      isMe: true,
-      timestamp: Date.now(),
-      avatar: "http://api.btstu.cn/sjtx/api.php?_t=4",
-      name: "",
-      content:
-        "如果吹牛有段位，你们都在永恒钻石徘徊，我却独自在王者百星独孤求败！",
-    },
-    {
-      isMe: false,
-      timestamp: Date.now(),
-      avatar: "http://api.btstu.cn/sjtx/api.php?_t=5",
-      name: "怪怪妹",
-      content: "🐂🍺",
-    },
-  ];
+  const group = useMemo(
+    () => state.group.find((g) => g.id === state.opt.checkedMessage.id),
+    [state]
+  );
+  const msgs = useMemo(() => group?.chatHistory ?? [], [group]);
+  const name = useMemo(() => group?.name ?? "", [group]);
+  const member = useMemo(() => group?.member ?? [], [group]);
   return (
     <section className={style.messageBoxWrap}>
       <section className={style.messageBox}>
         <header className={style.header}>
-          <span className="name">聊天吹水群</span>
+          <span className="name">{name}</span>
           <MoreButton open={open} setOpen={setOpen} />
         </header>
         <ChatBox msgs={msgs} />
         <Editor />
       </section>
-      <Aside open={open} />
+      <Aside open={open} member={member} />
     </section>
   );
 }
