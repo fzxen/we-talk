@@ -21,7 +21,7 @@ function List() {
       type: ACTIONS.CHECK_MESSAGE,
       payload: { id: message.id, type: message.type },
     });
-  }, []);
+  }, [dispatch]);
   return (
     <ul className={style.msgList}>
       {msgs.map((m, index) => (

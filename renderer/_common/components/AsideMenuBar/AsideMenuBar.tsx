@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import avatarImg from "_common/images/avatar.jpg";
 import style from "./AsideMenuBar.module.css";
 import Icon from "_common/components/Icon/Icon";
 import cn from "classnames";

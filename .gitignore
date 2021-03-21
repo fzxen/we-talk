@@ -105,6 +105,7 @@ dist
 
 app/public/
 app/index.js
+app/preload
 install
 
 .DS_Store

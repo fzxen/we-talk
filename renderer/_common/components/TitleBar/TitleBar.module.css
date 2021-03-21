@@ -1,0 +1,29 @@
+.dragBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  -webkit-app-region: drag;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 100;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+
+.list :global(.listItem) {
+  font-size: 20px;
+  margin-left: 5px;
+}
+.list :global(.listItem):hover {
+  color: #0cc160;
+}
