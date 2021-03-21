@@ -7,6 +7,8 @@ interface IProps {
   type?: "aside" | "normal";
   active?: boolean;
   customStyle?: any;
+  refElement?: any;
+  onClick?: () => void;
 }
 
 export default function Icon({
@@ -14,12 +16,16 @@ export default function Icon({
   icon,
   active = false,
   customStyle,
+  refElement,
+  onClick,
 }: IProps) {
   return (
     <svg
+      ref={refElement}
       className={cn("icon", style.icon, style[type], customStyle, {
         [style.active]: active,
       })}
+      onClick={() => onClick && onClick()}
       aria-hidden="true"
     >
       <use xlinkHref={`#${icon}`}></use>

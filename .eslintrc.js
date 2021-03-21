@@ -4,30 +4,21 @@ module.exports = {
     node: true,
   },
 
-  parser: "vue-eslint-parser",
-
   parserOptions: {
     parser: "@typescript-eslint/parser",
   },
 
   extends: [
-    "plugin:vue/vue3-recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
   ],
 
   plugins: ["@typescript-eslint"],
 
   rules: {
-    "vue/max-attributes-per-line": [
-      "error",
-      {
-        singleline: 3,
-        multiline: {
-          max: 2,
-          allowFirstLine: false,
-        },
-      },
-    ],
-    "@typescript-eslint/explicit-module-boundary-types": 0
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
 };

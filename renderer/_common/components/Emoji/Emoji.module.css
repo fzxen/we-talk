@@ -1,0 +1,10 @@
+.emoji {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  margin: 5px;
+}
+.emoji img {
+  width: 100%;
+  height: 100%;
+}

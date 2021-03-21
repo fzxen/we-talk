@@ -96,7 +96,7 @@ export function runRenderer() {
       devtool: "inline-cheap-module-source-map",
       plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new EslintWebpackPlugin({ fix: true, extensions: [".ts", ".vue"] }),
+        new EslintWebpackPlugin({ fix: true, extensions: [".ts", ".tsx"] }),
       ],
     });
 

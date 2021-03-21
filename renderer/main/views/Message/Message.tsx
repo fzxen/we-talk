@@ -5,7 +5,7 @@ import MessageBox from "../../components/MessageBox/MessageBox";
 
 import style from "./Message.module.css";
 
-export default function () {
+export default function Message() {
   return (
     <section className={style.container}>
       <MessageList />

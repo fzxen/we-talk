@@ -97,3 +97,36 @@
   background-color: transparent;
   resize: none;
 }
+
+/* emoji */
+.emojiPopper {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  border-radius: 10px 10px 10px 0;
+  overflow: hidden;
+  box-shadow: 0 0 5px #cccccc;
+}
+
+.emojiPopper :global(.mask) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  filter: blur(20px);
+  background: rgba(249, 249, 249, 1);
+}
+
+.emojiPopper :global(.content) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  overflow: auto;
+  padding: 5px;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+}
