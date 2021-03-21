@@ -5,6 +5,7 @@
 这是一个非盈利性的开源项目，目的是探讨和研究技术。欢迎提PR。
 
 如果需要进行二次开发，请先阅读本项目的开源协议[Apache-2.0 License](http://www.apache.org/licenses/)
+
 If you need secondary development, please read the open source agreement of this project first
 
 ## ROADMAP
