@@ -38,7 +38,7 @@ export default function GroupMessageBox() {
 
   const group = useMemo(
     () => state.chatLog.find((g) => g.id === state.opt.checkedMessage.id),
-    [state]
+    [state.chatLog, state.opt.checkedMessage.id]
   );
   const name = useMemo(() => group?.name ?? "", [group]);
   const msgs = useMemo(() => group?.chatHistory ?? [], [group]);

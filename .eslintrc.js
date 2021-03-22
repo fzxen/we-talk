@@ -10,8 +10,7 @@ module.exports = {
 
   extends: [
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
   ],
 
   plugins: ["@typescript-eslint"],
@@ -19,6 +18,6 @@ module.exports = {
   rules: {
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "error",
   },
 };

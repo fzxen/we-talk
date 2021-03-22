@@ -18,7 +18,7 @@ const GroupMessageBox = React.lazy(
 
 export default function Message() {
   const { state } = useStore();
-  const type = useMemo(() => state.opt.checkedMessage.type, [state]);
+  const type = useMemo(() => state.opt.checkedMessage?.type, [state.opt.checkedMessage?.type]);
   return (
     <section className={style.container}>
       <MessageList />
