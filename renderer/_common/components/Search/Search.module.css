@@ -1,6 +1,7 @@
 .search {
   display: flex;
   align-items: center;
+  justify-content: space-around;
   width: 120px;
   height: 30px;
   background-color: #e5e6ea;

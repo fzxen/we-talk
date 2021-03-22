@@ -16,7 +16,7 @@ export default function Search({
   placeholder = "搜索",
 }: SearchProps) {
   return (
-    <div className={cn(style.search, customStyle)}>
+    <div className={cn("search", style.search, customStyle)}>
       <input
         className={style.input}
         type="text"
