@@ -1,12 +1,20 @@
 import React, { useMemo } from "react";
 
 import MessageList from "../../components/MessageList/MessageList";
-import FriendMessageBox from "../../components/MessageBox/FriendMessageBox";
-import GroupMessageBox from "../../components/MessageBox/GroupMessageBox";
 
 import { useStore } from "_common/store";
 
 import style from "./Message.module.css";
+
+const Subscriptions = React.lazy(
+  () => import("../../components/Subscriptions/Subscriptions")
+);
+const FriendMessageBox = React.lazy(
+  () => import("../../components/MessageBox/FriendMessageBox")
+);
+const GroupMessageBox = React.lazy(
+  () => import("../../components/MessageBox/GroupMessageBox")
+);
 
 export default function Message() {
   const { state } = useStore();
@@ -14,8 +22,10 @@ export default function Message() {
   return (
     <section className={style.container}>
       <MessageList />
+
       {type === "friend" ? <FriendMessageBox /> : ""}
       {type === "group" ? <GroupMessageBox /> : ""}
+      {type === "subscriptions" ? <Subscriptions /> : ""}
     </section>
   );
 }

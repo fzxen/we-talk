@@ -1,0 +1,197 @@
+.subscriptions {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 50px 20px 20px;
+  box-sizing: border-box;
+}
+
+/**
+* * header
+*/
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.header :global(.title) {
+  font-weight: 600;
+}
+
+.header :global(.search) {
+  margin-left: auto;
+  width: 150px;
+}
+
+.header :global(.button-wrap) {
+  width: 30px;
+  height: 30px;
+  background-color: #e5e6ea;
+  text-align: center;
+  line-height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/**
+* * main
+*/
+.main {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  overflow: auto;
+}
+
+/**
+* * main ContentList
+*/
+.contentList {
+  width: 70%;
+  font-size: 12px;
+  /* padding: 20px 0; */
+
+}
+
+.contentListItem {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  /* box-shadow: 0 0 2px #ccc; */
+  border-radius: 10px;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+.titleLine {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+
+}
+
+.titleLine img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.titleLine :global(.name) {
+  margin-left: 10px;
+}
+
+.titleLine :global(.time) {
+  margin-left: auto;
+}
+
+.contentCover {
+  width: 100%;
+  padding-bottom: 60%;
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.contentCover img {
+  position: absolute;
+  width: 100%;
+}
+
+.contentPosts :global(li) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 5px 10px;
+}
+
+.contentPosts :global(li .content) {
+  flex: 1;
+  padding-right: 10px;
+}
+
+.contentPosts :global(li .cover) {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.contentPosts :global(li):first-of-type {
+  padding: 0;
+  position: relative;
+}
+
+.contentPosts :global(li:first-of-type .content) {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  z-index: 2;
+}
+
+.contentPosts :global(li:first-of-type .cover-wrap) {
+  width: 100%;
+  padding-bottom: 50%;
+  position: relative;
+}
+
+.contentPosts :global(li:first-of-type .cover) {
+  width: 100%;
+  height: auto;
+  position: absolute;
+}
+
+.morePost {
+  cursor: pointer;
+  color: #606f86;
+}
+
+.morePost :global(.icon) {
+  transform: rotate(90deg);
+
+}
+
+/**
+* * main IndexList
+*/
+.indexList {
+  margin-left: 7%;
+  width: 120px;
+  font-size: 12px;
+}
+
+.indexListItem {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: 30px;
+  background-color: #fff;
+  padding: 8px 10px;
+  margin-top: 10px;
+}
+
+.indexListItem :global(img) {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.indexListItem :global(.name) {
+  margin-left: 8px;
+}
+
+.indexListItem :global(.dot) {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background-color: #0dc166;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+}

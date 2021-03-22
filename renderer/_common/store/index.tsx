@@ -1,6 +1,6 @@
 import React, { useContext, useReducer } from "react";
 import { reducer, initialState, ACTIONS } from "./reducer";
-export { ACTIONS } from "./reducer";
+export { ACTIONS, InitialState } from "./reducer";
 
 const Context = React.createContext({});
 
