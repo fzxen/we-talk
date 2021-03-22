@@ -253,17 +253,17 @@ export function buildMain(mode: "production" | "development") {
 
     function catchError(err: any, stats: any) {
       if (err) {
-        log.error("================主进程 监听失败================\n" + err);
+        log.error("================主进程 构建失败================\n" + err);
         reject(err);
       } else if (stats && stats.hasErrors()) {
         const data = stats.toJson();
         log.error(
-          "================主进程 监听失败================\n" +
+          "================主进程 构建失败================\n" +
             data.errors?.map((err: any) => err.message).join("\n")
         );
         reject(data);
       } else {
-        log.success("================主进程 监听中================");
+        log.success("================主进程 构建成功================");
         const result = stats?.toJson();
 
         log.tip(`Time: ${result?.time}ms`);
