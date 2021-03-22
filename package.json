@@ -7,7 +7,7 @@
     "start": "ts-node scripts/dev.ts",
     "build": "ts-node scripts/build.ts",
     "electron": "nodemon  --exec \"electron app/index.js\"",
-    "fix": "eslint --fix --ext .ts,.vue ./main ./renderer"
+    "fix": "eslint --fix --ext .ts,.tsx ./main ./renderer"
   },
   "repository": {
     "type": "git",
