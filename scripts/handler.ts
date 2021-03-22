@@ -5,6 +5,7 @@ import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import MiniCssExtractPlugin, {
   loader as ExtractLoader,
 } from "mini-css-extract-plugin";
+import CssMinimizer from "css-minimizer-webpack-plugin";
 import EslintWebpackPlugin from "eslint-webpack-plugin";
 import { build } from "electron-builder";
 import path from "path";
@@ -98,6 +99,7 @@ export function runRenderer() {
         new EslintWebpackPlugin({
           cache: true,
           fix: true,
+          threads: true,
           extensions: ["ts", "tsx", "js", "jsx"],
         }),
       ],
@@ -152,6 +154,7 @@ export function buildRenderer() {
               },
             },
           }),
+          new CssMinimizer()
         ],
       },
       plugins: [
