@@ -72,6 +72,7 @@
 .msgItem :global(.middle) {
   flex: 1;
   margin-left: 5px;
+  overflow: hidden;
 }
 
 

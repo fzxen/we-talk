@@ -3,6 +3,7 @@ import style from "./MessageList.module.css";
 import Search from "_common/components/Search/Search";
 import Icon from "_common/components/Icon/Icon";
 import { useStore, ACTIONS } from "_common/store";
+import cn from "classnames";
 
 function AddButton() {
   return (
@@ -16,24 +17,27 @@ function List() {
   const { state, dispatch } = useStore();
   const msgs = state.messageList;
 
-  const checkMessage = useCallback((message: typeof msgs[0]) => {
-    dispatch({
-      type: ACTIONS.CHECK_MESSAGE,
-      payload: { id: message.id, type: message.type },
-    });
-  }, [dispatch]);
+  const checkMessage = useCallback(
+    (message: typeof msgs[0]) => {
+      dispatch({
+        type: ACTIONS.CHECK_MESSAGE,
+        payload: { id: message.id, type: message.type },
+      });
+    },
+    [dispatch]
+  );
   return (
     <ul className={style.msgList}>
       {msgs.map((m, index) => (
         <li
           key={index}
-          className={style.msgItem}
+          className={cn(style.msgItem)}
           onClick={() => checkMessage(m)}
         >
           <img src={`${m.avatar}?_t=${index}`} alt="avatar" />
           <div className="middle">
-            <div className="name">{m.name}</div>
-            <div className="content">{m.lastMessage.content}</div>
+            <div className="name text-ellipsis">{m.name}</div>
+            <div className="content text-ellipsis">{m.lastMessage.content}</div>
           </div>
           <div className="right">15:22</div>
         </li>
