@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import style from "./Subscriptions.module.css";
 import Search from "_common/components/Search/Search";
 import Icon from "_common/components/Icon/Icon";
-import { useStore, InitialState } from "_common/store";
+import { useAppStore, InitialState } from "_common/store";
 
 import cn from "classnames";
 
@@ -91,7 +91,7 @@ function IndexList({ data }: IndexListProps) {
 }
 
 export default function Subscriptions() {
-  const { state } = useStore();
+  const { state } = useAppStore();
   const subscriptions = useMemo(() => state.subscriptions ?? [], [
     state.subscriptions,
   ]);

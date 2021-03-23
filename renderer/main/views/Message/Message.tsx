@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 
 import MessageList from "../../components/MessageList/MessageList";
 
-import { useStore } from "_common/store";
+import { useAppStore } from "_common/store";
 
 import style from "./Message.module.css";
 
@@ -17,7 +17,7 @@ const GroupMessageBox = React.lazy(
 );
 
 export default function Message() {
-  const { state } = useStore();
+  const { state } = useAppStore();
   const type = useMemo(() => state.opt.checkedMessage?.type, [state.opt.checkedMessage?.type]);
   return (
     <section className={style.container}>

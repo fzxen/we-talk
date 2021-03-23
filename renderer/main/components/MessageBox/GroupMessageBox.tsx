@@ -8,7 +8,7 @@ import ChatBox from "./ChatBox";
 import Editor from "./Editor";
 import cn from "classnames";
 
-import { useStore } from "_common/store";
+import { useAppStore } from "_common/store";
 
 interface MoreButtonProps {
   open: boolean;
@@ -68,7 +68,7 @@ function Aside({ open, member }: AsideProps) {
 
 export default function GroupMessageBox() {
   const [open, setOpen] = useState(false);
-  const { state } = useStore();
+  const { state } = useAppStore();
 
   const group = useMemo(
     () => state.group.find((g) => g.id === state.opt.checkedMessage.id),

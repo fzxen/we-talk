@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import { Switch, Route, HashRouter, Redirect } from "react-router-dom";
 import TitleBar from "_common/components/TitleBar/TitleBar";
-import { Store } from "_common/store";
 
 import style from "./app.module.css";
 
@@ -14,7 +13,6 @@ const AsideMenuBar = React.lazy(
 export default function App() {
   return (
     <Suspense fallback={"loading..."}>
-      <Store>
         <TitleBar />
         <HashRouter>
           <AsideMenuBar />
@@ -26,7 +24,6 @@ export default function App() {
             </Switch>
           </main>
         </HashRouter>
-      </Store>
     </Suspense>
   );
 }

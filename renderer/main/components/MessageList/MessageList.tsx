@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import style from "./MessageList.module.css";
 import Search from "_common/components/Search/Search";
 import Icon from "_common/components/Icon/Icon";
-import { useStore, ACTIONS } from "_common/store";
+import { useAppStore } from "_common/store";
 import cn from "classnames";
 
 function AddButton() {
@@ -14,25 +14,21 @@ function AddButton() {
 }
 
 function List() {
-  const { state, dispatch } = useStore();
+  const { state, checkMessage } = useAppStore();
   const msgs = state.messageList;
 
-  const checkMessage = useCallback(
-    (message: typeof msgs[0]) => {
-      dispatch({
-        type: ACTIONS.CHECK_MESSAGE,
-        payload: { id: message.id, type: message.type },
-      });
-    },
-    [dispatch]
-  );
+  const check = useCallback((message: typeof msgs[0]) => 
+    checkMessage({ id: message.id, type: message.type })
+  , [checkMessage])
+        
+  
   return (
     <ul className={style.msgList}>
       {msgs.map((m, index) => (
         <li
           key={index}
           className={cn(style.msgItem)}
-          onClick={() => checkMessage(m)}
+          onClick={() => check(m)}
         >
           <img src={`${m.avatar}?_t=${index}`} alt="avatar" />
           <div className="middle">

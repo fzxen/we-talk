@@ -202,7 +202,8 @@ export const initialState = {
         },
         {
           id: "a003",
-          content: "罗胖60秒：安得广厦千万间，大庇天下寒士俱欢颜。你不知道的杜甫",
+          content:
+            "罗胖60秒：安得广厦千万间，大庇天下寒士俱欢颜。你不知道的杜甫",
           cover: "https://bing.ioliu.cn/v1/rand?key=person&w=300&h=150&_t=3",
         },
       ],
@@ -223,7 +224,8 @@ export const initialState = {
         },
         {
           id: "a003",
-          content: "罗胖60秒：安得广厦千万间，大庇天下寒士俱欢颜。你不知道的杜甫",
+          content:
+            "罗胖60秒：安得广厦千万间，大庇天下寒士俱欢颜。你不知道的杜甫",
           cover: "https://bing.ioliu.cn/v1/rand?key=person&w=300&h=150&_t=3",
         },
       ],
@@ -239,22 +241,3 @@ export const initialState = {
 };
 
 export type InitialState = typeof initialState;
-
-export enum ACTIONS {
-  CHECK_MESSAGE,
-}
-
-export function reducer(
-  state: typeof initialState,
-  action: { type: ACTIONS; payload?: any }
-) {
-  switch (action.type) {
-    case ACTIONS.CHECK_MESSAGE:
-      const data = Object.assign({}, state, {
-        opt: { checkedMessage: action.payload },
-      });
-
-      return data;
-  }
-  return state;
-}
