@@ -6,18 +6,6 @@ import { useAppStore, InitialState } from "_common/store";
 
 import cn from "classnames";
 
-function Header() {
-  return (
-    <header className={style.header}>
-      <span className="title">订阅号消息(37)</span>
-      <Search />
-      <div className="button-wrap">
-        <Icon icon="icon-menu" />
-      </div>
-    </header>
-  );
-}
-
 // * 内容列表
 interface ContentListProps {
   data: InitialState["subscriptions"];
@@ -69,8 +57,9 @@ function ContentListCard({ data }: ContentListCardProps) {
 // * 索引列表
 interface IndexListProps {
   data: InitialState["subscriptions"];
+  show: boolean;
 }
-function IndexList({ data }: IndexListProps) {
+function IndexList({ data, show }: IndexListProps) {
   const list = useMemo(
     () =>
       data.map((d) => (
@@ -83,7 +72,7 @@ function IndexList({ data }: IndexListProps) {
     [data]
   );
   return (
-    <div className={style.indexList}>
+    <div className={cn(style.indexList, {show})}>
       <div className="title">常读订阅号</div>
       <ul>{list}</ul>
     </div>
@@ -95,12 +84,20 @@ export default function Subscriptions() {
   const subscriptions = useMemo(() => state.subscriptions ?? [], [
     state.subscriptions,
   ]);
+
+  const [isAsideShow, setAsideShow] = useState(false)
   return (
     <section className={style.subscriptions}>
-      <Header />
-      <main className={style.main}>
+      <header className={style.header}>
+        <span className="title">订阅号消息(37)</span>
+        <Search />
+        <div className="button-wrap" onClick={() => setAsideShow(v => !v)}>
+          <Icon icon="icon-menu" />
+        </div>
+      </header>
+      <main className={cn(style.main, {asideShow: isAsideShow})}>
         <ContentList data={subscriptions} />
-        <IndexList data={subscriptions} />
+        <IndexList data={subscriptions} show={isAsideShow}  /> 
       </main>
     </section>
   );

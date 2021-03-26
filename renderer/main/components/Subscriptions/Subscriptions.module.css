@@ -46,6 +46,11 @@
   flex: 1;
   overflow: auto;
   padding: 0 20px;
+  transition: padding-right .2s ease-in-out;
+}
+
+.main:global(.asideShow) {
+  padding-right: 100px;
 }
 
 /**
@@ -55,7 +60,6 @@
   width: 70%;
   font-size: 12px;
   /* padding: 20px 0; */
-
 }
 
 .contentListItem {
@@ -164,6 +168,16 @@
   margin-left: 7%;
   width: 120px;
   font-size: 12px;
+  opacity: 1;
+  transition: all .1s ease-in-out;
+  position: fixed;
+  top: 100px;
+  right: 20px;
+}
+
+.indexList:not(:global(.show)) {
+  opacity: 0;
+  right: -120px;
 }
 
 .indexListItem {
