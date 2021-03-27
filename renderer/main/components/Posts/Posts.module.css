@@ -12,7 +12,73 @@
 */
 .header {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   margin-bottom: 10px;
   padding: 0 20px;
+  font-weight: 500;
+}
+
+.header> :global(.icon) {
+  transform: rotateY(180deg);
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.iconList {
+  margin-left: auto;
+  display: flex;
+}
+
+.iconList :global(.icon) {
+  margin-left: 5px;
+  font-size: 18px;
+  /* font-weight: 600;/ */
+  color: #a9a9ab;
+  cursor: pointer;
+}
+
+/**
+* * main
+**/
+.article {
+  flex: 1;
+  padding: 0 20px;
+  overflow: auto;
+}
+
+.article :global(p) {
+  font-size: 12px;
+  color: #909195;
+}
+
+.from span:first-of-type {
+  margin-right: 5px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  background-color: #e5e6ea;
+  padding: 8px 15px;
+  border-radius: 10px;
+}
+
+.author img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.author :global(.middle) {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.author p {
+  margin: 0;
+}
+
+.content {
+  padding-top: 10px;
 }
