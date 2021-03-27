@@ -10,3 +10,21 @@ ol {
   padding: 0;
   margin: 0;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e5e6ea;
+  border-radius: 7px;
+}
