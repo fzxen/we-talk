@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
+import { useHistory } from "react-router-dom";
 import style from "./Subscriptions.module.css";
 import Search from "_common/components/Search/Search";
 import Icon from "_common/components/Icon/Icon";
@@ -11,22 +12,39 @@ interface ContentListProps {
   data: InitialState["subscriptions"];
 }
 function ContentList({ data }: ContentListProps) {
+  const history = useHistory();
+  const goToDetail = useCallback(
+    (id: string) => {
+      history.push(`/message/posts/${id}`);
+    },
+    [history]
+  );
+
   const list = useMemo(
-    () => data.map((m) => <ContentListCard key={m.name} data={m} />),
-    [data]
+    () =>
+      data.map((m) => (
+        <ContentListCard key={m.name} data={m} goToDetail={goToDetail} />
+      )),
+    [data, goToDetail]
   );
   return <ul className={style.contentList}>{list}</ul>;
 }
 
 interface ContentListCardProps {
   data: InitialState["subscriptions"][0];
+  goToDetail: (id: string) => void;
 }
-function ContentListCard({ data }: ContentListCardProps) {
+function ContentListCard({ data, goToDetail }: ContentListCardProps) {
   const m = data;
   const len = m.articles.length - 2;
   const [more, setMore] = useState(len > 0); // true 显示余下n篇
+
   return (
-    <li key={m.name} className={style.contentListItem}>
+    <li
+      key={m.name}
+      className={style.contentListItem}
+      onClick={() => goToDetail(m.id)}
+    >
       <div className={style.titleLine}>
         <img src={m.avatar} alt={m.name} />
         <span className="name">{m.name}</span>
@@ -72,7 +90,7 @@ function IndexList({ data, show }: IndexListProps) {
     [data]
   );
   return (
-    <div className={cn(style.indexList, {show})}>
+    <div className={cn(style.indexList, { show })}>
       <div className="title">常读订阅号</div>
       <ul>{list}</ul>
     </div>
@@ -85,19 +103,19 @@ export default function Subscriptions() {
     state.subscriptions,
   ]);
 
-  const [isAsideShow, setAsideShow] = useState(false)
+  const [isAsideShow, setAsideShow] = useState(false);
   return (
     <section className={style.subscriptions}>
       <header className={style.header}>
         <span className="title">订阅号消息(37)</span>
         <Search />
-        <div className="button-wrap" onClick={() => setAsideShow(v => !v)}>
+        <div className="button-wrap" onClick={() => setAsideShow((v) => !v)}>
           <Icon icon="icon-menu" />
         </div>
       </header>
-      <main className={cn(style.main, {asideShow: isAsideShow})}>
+      <main className={cn(style.main, { asideShow: isAsideShow })}>
         <ContentList data={subscriptions} />
-        <IndexList data={subscriptions} show={isAsideShow}  /> 
+        <IndexList data={subscriptions} show={isAsideShow} />
       </main>
     </section>
   );

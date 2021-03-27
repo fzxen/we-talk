@@ -1,8 +1,6 @@
-import React, { useMemo } from "react";
-
+import React, { Suspense } from "react";
+import { Route } from "react-router-dom";
 import MessageList from "../../components/MessageList/MessageList";
-
-import { useAppStore } from "_common/store";
 
 import style from "./Message.module.css";
 
@@ -15,17 +13,19 @@ const FriendMessageBox = React.lazy(
 const GroupMessageBox = React.lazy(
   () => import("../../components/MessageBox/GroupMessageBox")
 );
+const Posts = React.lazy(() => import("../../components/Posts/Posts"));
 
 export default function Message() {
-  const { state } = useAppStore();
-  const type = useMemo(() => state.opt.checkedMessage?.type, [state.opt.checkedMessage?.type]);
   return (
     <section className={style.container}>
       <MessageList />
 
-      {type === "friend" ? <FriendMessageBox /> : ""}
-      {type === "group" ? <GroupMessageBox /> : ""}
-      {type === "subscriptions" ? <Subscriptions /> : ""}
+      <Suspense fallback={""}>
+        <Route path="/message/friend/:id" component={FriendMessageBox}></Route>
+        <Route path="/message/group/:id" component={GroupMessageBox}></Route>
+        <Route path="/message/subscriptions" component={Subscriptions}></Route>
+        <Route path="/message/posts/:id" component={Posts}></Route>
+      </Suspense>
     </section>
   );
 }

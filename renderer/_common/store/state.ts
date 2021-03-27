@@ -187,6 +187,7 @@ export const initialState = {
   ],
   subscriptions: [
     {
+      id: "00012",
       name: "逻辑思维",
       avatar: "http://api.btstu.cn/sjtx/api.php?_t=luojisiwei",
       articles: [
@@ -209,6 +210,7 @@ export const initialState = {
       ],
     },
     {
+      id: "090123",
       name: "JS社",
       avatar: "http://api.btstu.cn/sjtx/api.php?_t=jsshe",
       articles: [

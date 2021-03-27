@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import style from "./MessageBox.module.css";
+import { useParams } from "react-router-dom";
 
 import Icon from "_common/components/Icon/Icon";
 import Button from "_common/components/Button/Button";
@@ -70,10 +71,12 @@ export default function GroupMessageBox() {
   const [open, setOpen] = useState(false);
   const { state } = useAppStore();
 
-  const group = useMemo(
-    () => state.group.find((g) => g.id === state.opt.checkedMessage.id),
-    [state.group, state.opt.checkedMessage.id]
-  );
+  const { id } = useParams<{ id: string }>();
+
+  const group = useMemo(() => state.group.find((g) => g.id === id), [
+    state.group,
+    id,
+  ]);
   const msgs = useMemo(() => group?.chatHistory ?? [], [group]);
   const name = useMemo(() => group?.name ?? "", [group]);
   const member = useMemo(() => group?.member ?? [], [group]);

@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
 import style from "./MessageBox.module.css";
 
 import Icon from "_common/components/Icon/Icon";
@@ -32,16 +33,17 @@ function Aside({ open }: AsideProps) {
   return <section className={cn(style.aside, { open })}>aside</section>;
 }
 
-export default function GroupMessageBox() {
+export default function FriendMessageBox() {
   const [open, setOpen] = useState(false);
   const { state } = useAppStore();
+  const { id } = useParams<{ id: string }>();
 
-  const group = useMemo(
-    () => state.chatLog.find((g) => g.id === state.opt.checkedMessage.id),
-    [state.chatLog, state.opt.checkedMessage.id]
-  );
-  const name = useMemo(() => group?.name ?? "", [group]);
-  const msgs = useMemo(() => group?.chatHistory ?? [], [group]);
+  const friend = useMemo(() => state.chatLog.find((g) => g.id === id), [
+    state.chatLog,
+    id,
+  ]);
+  const name = useMemo(() => friend?.name ?? "", [friend]);
+  const msgs = useMemo(() => friend?.chatHistory ?? [], [friend]);
   return (
     <section className={style.messageBoxWrap}>
       <section className={style.messageBox}>

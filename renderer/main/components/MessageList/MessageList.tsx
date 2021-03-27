@@ -1,4 +1,5 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
+import { useHistory } from "react-router-dom";
 import style from "./MessageList.module.css";
 import Search from "_common/components/Search/Search";
 import Icon from "_common/components/Icon/Icon";
@@ -14,21 +15,26 @@ function AddButton() {
 }
 
 function List() {
-  const { state, checkMessage } = useAppStore();
-  const msgs = state.messageList;
+  const { state } = useAppStore();
+  const msgs = useMemo(() => state.messageList, [state]);
+  const history = useHistory();
 
-  const check = useCallback((message: typeof msgs[0]) => 
-    checkMessage({ id: message.id, type: message.type })
-  , [checkMessage])
-        
-  
+  const switchMain = useCallback(
+    (message: typeof msgs[0]) => {
+      let url = `/message/${message.type}`;
+      if (message.type !== "subscriptions") url += `/${message.id}`;
+      history.push(url);
+    },
+    [history]
+  );
+
   return (
     <ul className={style.msgList}>
       {msgs.map((m, index) => (
         <li
           key={index}
           className={cn(style.msgItem)}
-          onClick={() => check(m)}
+          onClick={() => switchMain(m)}
         >
           <img src={`${m.avatar}?_t=${index}`} alt="avatar" />
           <div className="middle">
