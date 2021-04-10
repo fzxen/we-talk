@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import style from "./AsideMenuBar.module.css";
 import Icon from "_common/components/Icon/Icon";
 import cn from "classnames";
@@ -42,7 +42,11 @@ const bottomOpts = [
 
 export default function AsideMenuBar() {
   const history = useHistory();
-  const [activeMenu, setActiveMenu] = useState("message");
+  const location = useLocation();
+
+  const [activeMenu, setActiveMenu] = useState(
+    () => menus.find((m) => location.pathname.startsWith(m.to))?.name ?? ""
+  );
 
   function switchHistory(menu: typeof menus[0]) {
     setActiveMenu(menu.name);

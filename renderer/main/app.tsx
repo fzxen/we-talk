@@ -17,7 +17,7 @@ export default function App() {
         <HashRouter>
           <AsideMenuBar />
           <main className={style.main}>
-            <Redirect path="/" to="/friends" />
+            <Redirect path="/" to="/message" />
             <Switch>
               <Route path="/message" component={Message} />
               <Route path="/friends" component={Friends} />
