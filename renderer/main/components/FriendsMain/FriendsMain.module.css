@@ -1,0 +1,83 @@
+.FriendsMain {
+  display: flex;
+  flex-direction: column;
+}
+
+.Header {
+  padding: 0 20px;
+  font-weight: 500;
+}
+
+.main {
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+}
+
+.Card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.Card :global(.top) {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #dedfe3;
+  padding-bottom: 40px;
+}
+
+.Card :global(.top) img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+}
+
+.Card :global(.top .aside) {
+  margin-left: 20px;
+}
+
+.Card :global(.top .aside .name) {
+  font-weight: 500;
+}
+
+.Card :global(.top .aside .name-info .icon) {
+  color: rgb(120, 195, 240);
+  margin-left: 10px;
+}
+
+.Card :global(.top .aside .desc) {
+  font-size: 12px;
+  color: #b8bbc5;
+}
+
+.Card :global(.bottom) {
+  margin-top: 20px;
+  font-size: 12px;
+}
+
+.Card :global(.bottom .table) {
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.Card :global(.bottom .tr) {
+  margin-bottom: 20px;
+}
+
+.Card :global(.bottom .label) {
+  color: #b8bbc5;
+  width: 50px;
+  text-align: justify;
+  text-align-last: justify;
+  padding-bottom: 20px;
+}
+
+.Card :global(.bottom .value) {
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+
+.Card :global(.bottom .button) {
+  margin: 0 auto;
+}
