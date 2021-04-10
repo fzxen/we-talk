@@ -77,13 +77,13 @@
 
 
 .msgItem :global(.middle .name) {
-  font-size: 14px;
+  font-size: 12px;
   /* compose:  */
   color: #111216;
 }
 
 .msgItem :global(.middle .content) {
-  font-size: 12px;
+  font-size: 10px;
   margin-top: 5px;
   color: #9a9a9c;
 }
