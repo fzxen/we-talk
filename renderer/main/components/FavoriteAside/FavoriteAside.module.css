@@ -1,0 +1,64 @@
+/**
+* * 头部 消息数+搜索框+建群按钮
+*/
+.header {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0 20px 10px;
+}
+
+.search {
+  margin-left: auto;
+}
+
+.headerButton {
+  width: 30px;
+  height: 30px;
+  background-color: #e5e6ea;
+  text-align: center;
+  line-height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.header :global(.title) {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.List {
+  padding: 10px 20px;
+}
+
+.ListItem {
+  font-size: 12px;
+  padding: 10px 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.ListItem:global(.active),
+.ListItem:hover {
+  background-color: #e5e6ea;
+  position: relative;
+}
+
+.ListItem:global(.active)::after {
+  content: "";
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 30%;
+  width: 2px;
+  background-color: #0cc160;
+}
+
+.ListItem :global(.icon) {
+  margin-right: 10px;
+  font-size: 14px;
+}
