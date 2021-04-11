@@ -18,7 +18,7 @@ const menus = [
   {
     name: "favorite",
     icon: "icon-box",
-    to: "",
+    to: "/favorite",
   },
   {
     name: "file",
