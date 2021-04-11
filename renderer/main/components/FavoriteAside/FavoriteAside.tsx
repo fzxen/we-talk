@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
 import cn from "classnames";
+import { useFavoriteStore } from "_common/store/favorite";
 import Search from "_common/components/Search/Search";
 import Icon from "_common/components/Icon/Icon";
 
@@ -17,37 +18,20 @@ function Header() {
   );
 }
 
-function List() {
-  const menus = [
-    {
-      icon: "icon-menu1",
-      name: "全部收藏",
-    },
-    {
-      icon: "icon-Note",
-      name: "笔记",
-    },
-    {
-      icon: "icon-folder",
-      name: "文件",
-    },
-    {
-      icon: "icon-image",
-      name: "相册",
-    },
-    {
-      icon: "icon-Link",
-      name: "链接",
-    },
-    {
-      icon: "icon-tag",
-      name: "标签",
-    },
-  ];
+interface ListPros {
+  menus: Array<any>;
+  activeMenu: string;
+  setActive: (key: string) => void;
+}
+function List({ menus, activeMenu, setActive }: ListPros) {
   return (
     <ul className={style.List}>
-      {menus.map((m, i) => (
-        <li key={m.icon} className={cn(style.ListItem, { active: i === 0 })}>
+      {menus.map((m) => (
+        <li
+          key={m.key}
+          className={cn(style.ListItem, { active: m.key === activeMenu })}
+          onClick={() => setActive(m.key)}
+        >
           <Icon icon={m.icon} />
           <span>{m.name}</span>
         </li>
@@ -57,10 +41,13 @@ function List() {
 }
 
 export default function FavoriteAside() {
+  const { state, setActive } = useFavoriteStore();
+  const menus = useMemo(() => state.menus, [state]);
+  const activeMenu = useMemo(() => state.activeMenu, [state]);
   return (
     <>
       <Header />
-      <List />
+      <List menus={menus} activeMenu={activeMenu} setActive={setActive} />
     </>
   );
 }

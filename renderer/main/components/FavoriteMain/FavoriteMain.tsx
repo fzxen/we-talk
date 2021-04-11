@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import style from "./FavoriteMain.module.css";
+import { useFavoriteStore } from "_common/store/favorite";
 
-function Header() {
+interface HeaderProps {
+  name?: string;
+}
+function Header({ name }: HeaderProps) {
   return (
     <header className={style.Header}>
-      <span>链接</span>
+      <span>{name}</span>
     </header>
   );
 }
@@ -83,10 +87,16 @@ function Gallery() {
 }
 
 export default function FavoriteMain() {
+  const { state } = useFavoriteStore();
+  const activeMenu = useMemo(() => state.activeMenu, [state]);
+  const activeMenuName = useMemo(
+    () => state.menus.find((m) => m.key === state.activeMenu)?.name,
+    [state]
+  );
   return (
     <>
-      <Header />
-      <Gallery />
+      <Header name={activeMenuName} />
+      {activeMenu === "img" ? <Gallery /> : <List />}
     </>
   );
 }
