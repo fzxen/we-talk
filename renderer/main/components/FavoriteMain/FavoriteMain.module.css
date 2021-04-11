@@ -1,0 +1,83 @@
+.Header {
+  padding: 0 20px;
+  font-weight: 500;
+}
+
+.List {
+  flex: 1;
+  padding: 10px 20px;
+  overflow: auto;
+}
+
+.ListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.ListItem img {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 10px;
+}
+
+.ListItem :global(.content) {
+  flex: 1;
+  margin-left: 10px;
+  overflow: hidden;
+}
+
+.ListItem :global(.content .type) {
+  color: #9a9a9c;
+}
+
+.ListItem :global(.content .author) {
+  color: #9a9a9c;
+  margin-top: 10px;
+}
+
+.ListItem :global(.info) {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  align-self: flex-start;
+  color: #9a9a9c;
+}
+
+/**
+* * Gallery
+**/
+.Gallery {
+  flex: 1;
+  padding: 10px 20px;
+  overflow: auto;
+}
+.Gallery > li {
+  margin-bottom: 30px;
+}
+.GalleryDate {
+  font-size: 12px;
+}
+.GalleryListItem {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -20px;
+}
+.GalleryListItem img {
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  margin-left: 20px;
+  margin-top: 20px;
+  transition: transform .3s ease-in-out;
+  cursor: pointer;
+}
+.GalleryListItem img:hover {
+  transform: scale(1.1);
+}
