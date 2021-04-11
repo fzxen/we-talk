@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import Search from "_common/components/Search/Search";
 import Icon from "_common/components/Icon/Icon";
 import cn from "classnames";
+import { useFriendsStore } from "_common/store/friends";
 
 import style from "./FriendsAside.module.css";
 
@@ -18,48 +19,48 @@ function Header() {
 }
 
 function TabSwitch() {
+  const {
+    category: list,
+    activeCategory: active,
+    setCategoryActive,
+  } = useFriendsStore();
   return (
     <ul className={style.TabSwitch}>
-      <li className="active">
-        <span className="title">联系人</span>
-        <span className="count">169</span>
-      </li>
-      <li>
-        <span className="title">公众号</span>
-        <span className="count">80</span>
-      </li>
-      <li>
-        <span className="title">群聊</span>
-        <span className="count">6</span>
-      </li>
-      <li>
-        <span className="title">企业微信</span>
-        <span className="count">3</span>
-      </li>
+      {list.map((l) => (
+        <li
+          className={cn({ active: active === l.key })}
+          onClick={() => setCategoryActive(l.key)}
+        >
+          <span className="title">{l.name}</span>
+          <span className="count">{l.count}</span>
+        </li>
+      ))}
     </ul>
   );
 }
 
 function List() {
+  const { list, activeListId, setListActive } = useFriendsStore();
   return (
     <ul className={style.List}>
-      {new Array(5).fill(0).map((_, i) => (
-        <Fragment key={i}>
-          <span className="tag">{String.fromCharCode(65 + i)}</span>
-          <li className={cn({ active: i === 0 })}>
-            <img src="http://api.btstu.cn/sjtx/api.php?_t=friend" alt="" />
-            <div className="name text-ellipsis ">阿宝</div>
-          </li>
-          <li>
-            <img src="http://api.btstu.cn/sjtx/api.php?_t=friend" alt="" />
-            <div className="name text-ellipsis ">阿宝</div>
-          </li>
-          <li>
-            <img src="http://api.btstu.cn/sjtx/api.php?_t=friend" alt="" />
-            <div className="name text-ellipsis ">阿宝</div>
-          </li>
-        </Fragment>
-      ))}
+      {list.map((item) => {
+        const [order, l] = item;
+        return (
+          <Fragment key={order}>
+            <span className="tag">{order}</span>
+            {l.map((i) => (
+              <li
+                key={i.id}
+                className={cn({ active: i.id === activeListId })}
+                onClick={() => setListActive(i.id)}
+              >
+                <img src={i.avatar} alt="" />
+                <div className="name text-ellipsis ">{i.comment || i.name}</div>
+              </li>
+            ))}
+          </Fragment>
+        );
+      })}
     </ul>
   );
 }

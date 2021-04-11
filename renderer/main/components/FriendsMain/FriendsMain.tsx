@@ -1,5 +1,6 @@
 import React from "react";
 
+import { useFriendsStore } from "_common/store/friends";
 import Button from "_common/components/Button/Button";
 import Icon from "_common/components/Icon/Icon";
 import style from "./FriendsMain.module.css";
@@ -13,16 +14,17 @@ function Header() {
 }
 
 function Card() {
+  const { activeFriend: friend } = useFriendsStore();
   return (
     <section className={style.Card}>
       <div className="top">
         <img src="http://api.btstu.cn/sjtx/api.php?_t=friend" alt="" />
         <div className="aside">
           <div className="name-info">
-            <span className="name">餐桌上的小雨</span>
+            <span className="name">{friend?.name}</span>
             <Icon icon="icon-user" />
           </div>
-          <div className="desc">一个懂设计的朋友</div>
+          <div className="desc">{friend?.desc}</div>
         </div>
       </div>
       <div className="bottom">
@@ -30,19 +32,19 @@ function Card() {
           <tbody>
             <tr className="tr">
               <td className="label">备注名</td>
-              <td className="value">阿杰</td>
+              <td className="value">{friend?.comment}</td>
             </tr>
             <tr>
               <td className="label">地区</td>
-              <td className="value">广州 广东</td>
+              <td className="value">{friend?.region}</td>
             </tr>
             <tr>
               <td className="label">微信号</td>
-              <td className="value">ajie 100101010101</td>
+              <td className="value">{friend?.weChatId}</td>
             </tr>
             <tr>
               <td className="label">来源</td>
-              <td className="value">通过QQ好友添加</td>
+              <td className="value">{friend?.source}</td>
             </tr>
           </tbody>
         </table>
