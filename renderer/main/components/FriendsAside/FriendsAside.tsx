@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Search from "_common/components/Search/Search";
 import Icon from "_common/components/Icon/Icon";
 import cn from "classnames";
@@ -44,23 +44,21 @@ function List() {
   return (
     <ul className={style.List}>
       {new Array(5).fill(0).map((_, i) => (
-        <>
-          <span key={i + "span"} className="tag">
-            {String.fromCharCode(65 + i)}
-          </span>
-          <li key={i + "li1"} className={cn({ active: i === 0 })}>
+        <Fragment key={i}>
+          <span className="tag">{String.fromCharCode(65 + i)}</span>
+          <li className={cn({ active: i === 0 })}>
             <img src="http://api.btstu.cn/sjtx/api.php?_t=friend" alt="" />
             <div className="name text-ellipsis ">阿宝</div>
           </li>
-          <li key={i + "li2"}>
+          <li>
             <img src="http://api.btstu.cn/sjtx/api.php?_t=friend" alt="" />
             <div className="name text-ellipsis ">阿宝</div>
           </li>
-          <li key={i + "li3"}>
+          <li>
             <img src="http://api.btstu.cn/sjtx/api.php?_t=friend" alt="" />
             <div className="name text-ellipsis ">阿宝</div>
           </li>
-        </>
+        </Fragment>
       ))}
     </ul>
   );
