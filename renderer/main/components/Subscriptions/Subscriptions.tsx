@@ -60,7 +60,13 @@ function ContentListCard({ data, goToDetail }: ContentListCardProps) {
           </li>
         ))}
         {more ? (
-          <li className={style.morePost} onClick={() => setMore(false)}>
+          <li
+            className={style.morePost}
+            onClick={(e) => {
+              e.stopPropagation()
+              setMore(false);
+            }}
+          >
             <span className="content">余下{len}篇</span>
             <Icon icon="icon-previewright" />
           </li>
