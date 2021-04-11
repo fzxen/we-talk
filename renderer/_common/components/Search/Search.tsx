@@ -23,7 +23,7 @@ export default function Search({
         placeholder={placeholder}
         onChange={(e) => onInput && onInput(e.target.value)}
       />
-      <Icon icon="icon-search" customStyle={style.icon} />
+      <Icon icon="icon-search1" customStyle={style.icon} />
     </div>
   );
 }
