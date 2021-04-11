@@ -25,3 +25,5 @@ WIP
 ### 效果展示
 
 ![display](./docs/display.png)
+
+> UI来自 [站酷](https://www.zcool.com.cn/work/ZNTEyOTk3MjA%3D.html)
