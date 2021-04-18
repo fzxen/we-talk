@@ -154,7 +154,7 @@ export function buildRenderer() {
               },
             },
           }),
-          new CssMinimizer()
+          new CssMinimizer(),
         ],
       },
       plugins: [
@@ -293,10 +293,10 @@ export function buildElectron() {
       },
       mac: {
         category: "music",
-        icon: "app/statics/icon-1.png",
+        icon: "app/statics/icon.png",
         target: {
           target: "dmg",
-          arch: ["arm64"],
+          arch: ["x64", "arm64"],
         },
       },
       dmg: {
@@ -320,7 +320,7 @@ export function buildElectron() {
       },
 
       win: {
-        icon: "app/statics/icon.ico",
+        icon: "app/statics/icon.png",
         target: [
           {
             target: "nsis",
@@ -332,9 +332,9 @@ export function buildElectron() {
         oneClick: false, // 下一步 安装
         allowElevation: true,
         allowToChangeInstallationDirectory: true, // 允许改变安装目录
-        installerIcon: "app/statics/icon.ico",
-        uninstallerIcon: "app/statics/icon.ico",
-        installerHeaderIcon: "app/statics/icon.ico",
+        installerIcon: "app/statics/icon.png",
+        uninstallerIcon: "app/statics/icon.png",
+        installerHeaderIcon: "app/statics/icon.png",
         createDesktopShortcut: true,
         createStartMenuShortcut: true,
         shortcutName: "skyWebRemote",
