@@ -14,9 +14,13 @@ If you need secondary development, please read the open source agreement of this
 
 1. 准备
    - [x] 基础架构
-   - [ ] 需求明确 WIP
-2. 开发
-   - [ ] UI还原 WIP
+   - [x] 基础UI实现
+   - [ ] 需求梳理 WIP
+
+2. 聊天窗口
+
+   - [x] 会话窗口
+   - [ ] 聊天编辑器
 
 ### BE
 
@@ -24,6 +28,16 @@ WIP
 
 ### 效果展示
 
+消息页面
+
 ![display](./docs/display.png)
 
-> UI来自 [站酷](https://www.zcool.com.cn/work/ZNTEyOTk3MjA%3D.html)
+订阅号
+
+![订阅号](./docs/订阅号.png)
+
+相册
+
+![相册](./docs/相册.png)
+
+> UI创意来自 [站酷](https://www.zcool.com.cn/work/ZNTEyOTk3MjA%3D.html)
